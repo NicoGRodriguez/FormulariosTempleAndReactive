@@ -34,7 +34,7 @@
             placeholder="Email del usuario"
           />
           <span class="form-text text-danger" *ngIf="campoNoValido('email')">
-            El correo es obligatorio
+            {{ emailErrorMsg }}
           </span>
         </div>
       </div>
@@ -49,8 +49,8 @@
             placeholder="Nombre codigo del usuario"
           />
           <span class="form-text text-danger" *ngIf="campoNoValido('username')">
-            Username no puede ser Strider
-          </span>
+            El username es obligatorio.
+          </span>        
         </div>
       </div>
       <!--Password-->
@@ -89,7 +89,13 @@
       <!--Boton Enviar-->
       <div class="row">
         <div class="col">
-          <button class="btn btn-primary float-end" type="submit">Crear</button>
+          <button
+            class="btn btn-primary float-end"
+            type="submit"
+            [disabled]="miFormulario.pending || !miFormulario.valid"
+          >
+            Crear
+          </button>
         </div>
       </div>
     </form>
@@ -97,6 +103,8 @@
 </div>
 
 <h3>Form Valid: {{ miFormulario.valid }}</h3>
+<h3>Form Status: {{ miFormulario.status }}</h3>
+<h3>Form Pending: {{ miFormulario.pending }}</h3>
 
 <h5>Nombre</h5>
 <pre>{{ miFormulario.controls["nombre"].errors | json }}</pre>
